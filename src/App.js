@@ -3,14 +3,13 @@ import { Header } from './components/Header';
 
 import { GlobalProvider } from './context/GlobalState';
 
-import './App.css';
-import {HomePage} from "./pages/home.page";
+import {Routes} from "./routes/routes";
 
 function App() {
   return (
     <GlobalProvider>
       <Header />
-        <HomePage/>
+        <Routes/>
     </GlobalProvider>
   );
 }
