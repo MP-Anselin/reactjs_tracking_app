@@ -8,6 +8,7 @@ export const AddTransaction = () => {
 
     const {addTransaction} = useContext(GlobalContext);
 
+
     const onSubmit = e => {
         e.preventDefault();
 
@@ -16,7 +17,13 @@ export const AddTransaction = () => {
             text,
             amount: +amount
         }
-
+     /*   let data = JSON.parse(localStorage.getItem('transactionData'));
+        console.log('r data => ', data)
+        let merged = [newTransaction];
+        if (data)
+            merged = [...data, ...merged];
+        console.log('r merged => ', merged)
+        localStorage.setItem('transactionData', JSON.stringify(merged));*/
         addTransaction(newTransaction);
     }
 
@@ -26,7 +33,8 @@ export const AddTransaction = () => {
             <Form onSubmit={onSubmit}>
                 <Form.Group className="form-control" controlId="formBasicEmail">
                     <Form.Label>Name of the spend</Form.Label>
-                    <Form.Control type="text" placeholder="Name" value={text} onChange={(e) => setText(e.target.value)}/>
+                    <Form.Control type="text" placeholder="Name" value={text}
+                                  onChange={(e) => setText(e.target.value)}/>
                 </Form.Group>
 
                 <Form.Group className="form-control" controlId="formBasicCheckbox">
@@ -37,7 +45,7 @@ export const AddTransaction = () => {
                     </Form.Label>
                     <Form.Check type="number" label="value" value={amount} onChange={(e) => setAmount(e.target.value)}/>
                 </Form.Group>
-                <Button type="submit" className="btn" >Add transaction</Button>
+                <Button type="submit" className="btn">Add transaction</Button>
             </Form>
         </>
     )

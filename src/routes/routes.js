@@ -1,6 +1,7 @@
 import React from "react";
 import {Routes as ReactRouterRoutes, Route} from "react-router-dom";
-import {HomePage} from "../pages/home.page";
+import {HomePage} from "../pages/Home.page";
+import {TransactionListPage} from "../pages/TransactionList.page";
 
 const Routes = () => {
     return (
@@ -9,7 +10,7 @@ const Routes = () => {
                 path="/"
                 element={<HomePage/>}
             />
-            {/*<Route path="login" element={<LoginPage/>}/>*/}
+            <Route path="list" element={<TransactionListPage/>}/>
         </ReactRouterRoutes>
     );
 };

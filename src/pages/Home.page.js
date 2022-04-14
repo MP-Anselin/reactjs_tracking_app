@@ -9,14 +9,12 @@ import '../App.css';
 
 const HomePage = () => {
     return (
-        <GlobalProvider>
-            <div className="container">
-                <Balance />
-                <IncomeExpenses />
-                <TransactionList />
-                <AddTransaction />
-            </div>
-        </GlobalProvider>
+        <div className="container">
+            <Balance/>
+            <IncomeExpenses/>
+            <TransactionList/>
+            <AddTransaction/>
+        </div>
     );
 };
 
