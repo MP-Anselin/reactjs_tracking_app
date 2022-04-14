@@ -1,7 +1,8 @@
 import React from 'react';
 import {Header} from './components/Header';
 
-import {GlobalProvider} from './context/GlobalState';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'mdbreact/dist/css/mdb.css';
 
 import {Routes} from "./routes/routes";
 
