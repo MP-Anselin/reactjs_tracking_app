@@ -1,10 +1,14 @@
 import React, {useState, useContext} from 'react'
 import {GlobalContext} from '../context/GlobalState';
 import {Button, Form} from 'react-bootstrap';
+import { Route } from "react-router-dom";
+import {Post} from "./Post";
 
 export const AddTransaction = () => {
     const [text, setText] = useState('');
     const [amount, setAmount] = useState(0);
+    const [saveDate, setSaveDate] = useState(new Date());
+    const [needNewPage, setNeedNewPage] = useState(false);
 
     const {addTransaction} = useContext(GlobalContext);
 
@@ -13,18 +17,13 @@ export const AddTransaction = () => {
         e.preventDefault();
 
         const newTransaction = {
-            id: Math.floor(Math.random() * 100000000),
+            id: Date.now(),
             text,
-            amount: +amount
+            amount: +amount,
+            date: saveDate
         }
-     /*   let data = JSON.parse(localStorage.getItem('transactionData'));
-        console.log('r data => ', data)
-        let merged = [newTransaction];
-        if (data)
-            merged = [...data, ...merged];
-        console.log('r merged => ', merged)
-        localStorage.setItem('transactionData', JSON.stringify(merged));*/
         addTransaction(newTransaction);
+        setNeedNewPage(true);
     }
 
     return (
@@ -45,8 +44,18 @@ export const AddTransaction = () => {
                     </Form.Label>
                     <Form.Check type="number" label="value" value={amount} onChange={(e) => setAmount(e.target.value)}/>
                 </Form.Group>
+
+                <Form.Group className="form-control" controlId="dob">
+                    <Form.Label>Select Date</Form.Label>
+                    <br/>
+                    <Form.Control type="date" name="dob" placeholder="Date of Birth" onChange={(e) => setSaveDate(e.target.value)} />
+                </Form.Group>
                 <Button type="submit" className="btn">Add transaction</Button>
             </Form>
+            {needNewPage ?
+                <Route path="transactions/:id" component={Post}></Route> & setNeedNewPage(false)
+                : <></>
+            }
         </>
     )
 }

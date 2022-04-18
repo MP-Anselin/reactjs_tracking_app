@@ -1,26 +1,33 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Line} from "react-chartjs-2";
 import {MDBContainer} from "mdbreact";
 
 import {GlobalContext} from '../context/GlobalState';
 
 export const ChartDisplay = () => {
+    const {transactions} = useContext(GlobalContext);
+
+    const dateList = transactions.map(transaction => transaction.date);
+    const income = transactions.filter(transaction => transaction.amount > 0);
+    const expensed = transactions.filter(transaction => transaction.amount < 0);
+    const incomeAmountList = income.map(ic => ic.amount);
+    const expensedAmountList = expensed.map(ex => ex.amount);
 
     const data = {
         dataLine: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: dateList,
             datasets: [
                 {
-                    label: "My First dataset",
+                    label: "EARNED",
                     fill: true,
                     lineTension: 0.3,
                     backgroundColor: "rgba(225, 204,230, .3)",
-                    borderColor: "rgb(205, 130, 158)",
+                    borderColor: "green",
                     borderCapStyle: "butt",
                     borderDash: [],
                     borderDashOffset: 0.0,
                     borderJoinStyle: "miter",
-                    pointBorderColor: "rgb(205, 130,1 58)",
+                    pointBorderColor: "green",
                     pointBackgroundColor: "rgb(255, 255, 255)",
                     pointBorderWidth: 10,
                     pointHoverRadius: 5,
@@ -29,19 +36,19 @@ export const ChartDisplay = () => {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: incomeAmountList,
                 },
                 {
-                    label: "My Second dataset",
+                    label: "EXPENSED",
                     fill: true,
                     lineTension: 0.3,
                     backgroundColor: "rgba(184, 185, 210, .3)",
-                    borderColor: "rgb(35, 26, 136)",
+                    borderColor: "red",
                     borderCapStyle: "butt",
                     borderDash: [],
                     borderDashOffset: 0.0,
                     borderJoinStyle: "miter",
-                    pointBorderColor: "rgb(35, 26, 136)",
+                    pointBorderColor: "red",
                     pointBackgroundColor: "rgb(255, 255, 255)",
                     pointBorderWidth: 10,
                     pointHoverRadius: 5,
@@ -50,7 +57,7 @@ export const ChartDisplay = () => {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: [28, 48, 40, 19, 86, 27, 90]
+                    data: expensedAmountList,
                 }
             ]
         }
