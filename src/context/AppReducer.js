@@ -1,4 +1,4 @@
-export default (state, action) => {
+const AppReducer = (state, action) => {
 
     function add(newTransaction) {
         let data = JSON.parse(localStorage.getItem('transactionData'));
@@ -39,3 +39,5 @@ export default (state, action) => {
             return get();
     }
 }
+
+export default AppReducer;

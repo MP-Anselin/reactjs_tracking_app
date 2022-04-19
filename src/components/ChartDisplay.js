@@ -10,12 +10,38 @@ export const ChartDisplay = () => {
     const dateList = transactions.map(transaction => transaction.date);
     const income = transactions.filter(transaction => transaction.amount > 0);
     const expensed = transactions.filter(transaction => transaction.amount < 0);
-    const incomeAmountList = income.map(ic => ic.amount);
-    const expensedAmountList = expensed.map(ex => ex.amount);
+
+    const getCorrectDateList = () => {
+        const uniqueArray = dateList.filter(function (item, pos) {
+            return dateList.indexOf(item) === pos;
+        })
+        uniqueArray.sort(function (a, b) {
+            return new Date(a) - new Date(b);
+        });
+        return uniqueArray;
+    }
+
+    const setValueByDate = (arrayInfo) => {
+        const newList = [];
+        let isPush = false;
+
+        getCorrectDateList().forEach((time) => {
+            arrayInfo.forEach((el) => {
+                if (time === el.date) {
+                    newList.push(el.amount);
+                    isPush = true;
+                }
+            })
+            if (!isPush)
+                newList.push(0);
+            isPush = false;
+        })
+        return newList;
+    }
 
     const data = {
         dataLine: {
-            labels: dateList,
+            labels: getCorrectDateList(),
             datasets: [
                 {
                     label: "EARNED",
@@ -36,7 +62,7 @@ export const ChartDisplay = () => {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: incomeAmountList,
+                    data: setValueByDate(income),
                 },
                 {
                     label: "EXPENSED",
@@ -57,7 +83,7 @@ export const ChartDisplay = () => {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: expensedAmountList,
+                    data: setValueByDate(expensed),
                 }
             ]
         }
@@ -67,7 +93,7 @@ export const ChartDisplay = () => {
     return (
         <MDBContainer>
             <h3 className="mt-5">Bar chart</h3>
-            <Line data={data.dataLine} options={{ responsive: true }} />
+            <Line data={data.dataLine} options={{responsive: true}}/>
         </MDBContainer>
     )
 }

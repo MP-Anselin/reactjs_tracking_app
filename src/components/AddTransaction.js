@@ -7,7 +7,7 @@ import {Post} from "./Post";
 export const AddTransaction = () => {
     const [text, setText] = useState('');
     const [amount, setAmount] = useState(0);
-    const [saveDate, setSaveDate] = useState(new Date());
+    const [saveDate, setSaveDate] = useState(new Date().toISOString().slice(0, 10));
     const [needNewPage, setNeedNewPage] = useState(false);
 
     const {addTransaction} = useContext(GlobalContext);
@@ -15,6 +15,9 @@ export const AddTransaction = () => {
 
     const onSubmit = e => {
         e.preventDefault();
+
+        if (!text || !saveDate)
+            return;
 
         const newTransaction = {
             id: Date.now(),
@@ -48,7 +51,7 @@ export const AddTransaction = () => {
                 <Form.Group className="form-control" controlId="dob">
                     <Form.Label>Select Date</Form.Label>
                     <br/>
-                    <Form.Control type="date" name="dob" placeholder="Date of Birth" onChange={(e) => setSaveDate(e.target.value)} />
+                    <Form.Control type="date" name="dob" placeholder="Date of transaction" value={saveDate} onChange={(e) => setSaveDate(e.target.value)} />
                 </Form.Group>
                 <Button type="submit" className="btn">Add transaction</Button>
             </Form>
