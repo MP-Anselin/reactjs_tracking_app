@@ -12,7 +12,7 @@ In the project directory, you can run:
 
 Docker deploy
 ### `docker build -f Dockerfile -t client .`
-### `docker run -it -p 4001:3000 client`
+### `docker run -it -p 3000:3000 client`
 
 ## Available Routes
 
